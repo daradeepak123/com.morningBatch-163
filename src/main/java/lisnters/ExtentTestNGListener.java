@@ -3,9 +3,17 @@ package lisnters;
 
 import com.aventstack.extentreports.*;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+import com.google.common.io.Files;
 
+import utils.OpenBroswer;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.StandardCopyOption;
 import java.util.Calendar;
 
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -36,6 +44,18 @@ public class ExtentTestNGListener implements ITestListener {
 
     
     public void onTestFailure(ITestResult result) {
+    	File screenshot = ((TakesScreenshot) OpenBroswer.driver).getScreenshotAs(OutputType.FILE);
+
+        File destination = new File("screenshot.png");
+
+        // Copy screenshot to desired location using Java NIO
+        try {
+			Files.copy(screenshot, destination);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
         test.get().fail(result.getThrowable());
     }
 

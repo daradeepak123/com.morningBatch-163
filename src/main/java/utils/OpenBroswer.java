@@ -10,7 +10,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class OpenBroswer {
 	
-	static WebDriver driver;
+	public static WebDriver driver;
 	
 	public static WebDriver openBrowser(String url)
 	{
